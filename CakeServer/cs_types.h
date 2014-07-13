@@ -11,6 +11,7 @@ using std::cout;
 using std::string;
 using std::unordered_map;
 
-typedef unordered_map<int, char*> ResponseMsg;
+typedef unordered_map<int, char*> IntDict;
+typedef unordered_map<char*, char*> StrDict;
 
 #endif

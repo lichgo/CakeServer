@@ -1,7 +1,6 @@
 #include "cs_types.h"
 #include "settings.h"
 #include "server.h"
-#include "global.h"
 
 extern  "C" {
     int read(int, void*, int);
@@ -11,14 +10,12 @@ extern  "C" {
 
 using namespace cakeserver;
 
+extern IntDict RESMSG;
+extern StrDict MIMETYPE;
+
 static struct Settings SETTINGS = {
     .bufLen = 1024,
     .port = 8000
-};
-
-ResponseMsg RESMSG = {
-    { 200, "HTTP/1.1 200 OK\r\nContent-type: text/html\r\n\r\n" },
-    { 404, "HTTP/1.1 404 Not Found\r\nContent-type: text/html\r\n\r\n" }
 };
 
 Server::Server() {

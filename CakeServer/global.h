@@ -1,0 +1,6 @@
+#ifndef CAKESERVER_GLOBAL_H
+#define CAKESERVER_GLOBAL_H
+
+
+
+#endif
