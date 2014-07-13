@@ -10,12 +10,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CakeServer/server.cpp"
-            timestampString = "426911112.819436"
+            timestampString = "426924090.616104"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "Server::getInstance()"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "Server::Server()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CakeServer/server.cpp"
+            timestampString = "426924337.826908"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "Server::sendFile(char* filename, int sockfd)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

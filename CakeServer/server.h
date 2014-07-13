@@ -10,15 +10,19 @@ namespace cakeserver {
     public:
         virtual ~Server();
         static Server& getInstance();
+        void run();
         
     private:
         Server();
-        
-        static Server instance;
-        static int sockfd;
-        static int err;
-        static int newfd;
-        static struct sockaddr_in address;
+        Server(const Server& src);
+        Server& operator=(const Server& rhs);
+        void response(int sockfd);
+        void sendFile(char* filename, int sockfd);
+    
+        int sockfd;
+        int err;
+        int newfd;
+        struct sockaddr_in address;
     };
     
 }

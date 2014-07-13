@@ -33,6 +33,7 @@
 		FD90AE1B1972071300127857 /* server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = server.h; sourceTree = "<group>"; };
 		FD90AE1C1972071300127857 /* settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
 		FD90AE1E19721CAF00127857 /* cs_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cs_types.h; sourceTree = "<group>"; };
+		FD90AE1F19724ADB00127857 /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +66,7 @@
 		FD90AE10197205DD00127857 /* CakeServer */ = {
 			isa = PBXGroup;
 			children = (
+				FD90AE1F19724ADB00127857 /* global.h */,
 				FD90AE1E19721CAF00127857 /* cs_types.h */,
 				FD90AE1A1972071300127857 /* server.cpp */,
 				FD90AE1B1972071300127857 /* server.h */,

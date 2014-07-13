@@ -1,6 +1,13 @@
 #include "cs_types.h"
 #include "settings.h"
 #include "server.h"
+#include "global.h"
+
+extern  "C" {
+    int read(int, void*, int);
+    int write(int, void*, int);
+    int close(int);
+}
 
 using namespace cakeserver;
 
@@ -9,11 +16,12 @@ static struct Settings SETTINGS = {
     .port = 8000
 };
 
-Server::Server() {}
+ResponseMsg RESMSG = {
+    { 200, "HTTP/1.1 200 OK\r\nContent-type: text/html\r\n\r\n" },
+    { 404, "HTTP/1.1 404 Not Found\r\nContent-type: text/html\r\n\r\n" }
+};
 
-Server::~Server() {}
-
-Server& Server::getInstance() {
+Server::Server() {
     
     // Initialize socket
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -33,5 +41,81 @@ Server& Server::getInstance() {
     }
     
     listen(sockfd, 128);
+
+}
+
+Server::~Server() {
     
 }
+
+Server& Server::getInstance() {
+    static Server instance;
+    return instance;
+}
+
+void Server::run() {
+
+    cout << "Waiting for connection...\n";
+    
+    while (true) {
+        newfd = accept(sockfd, NULL, NULL);
+        cout << "Responding to the client...\n";
+        response(newfd);
+        close(newfd);
+    }
+    
+}
+
+void Server::response(int sockfd) {
+    
+    char* buf = new char[SETTINGS.bufLen];
+
+    read(sockfd, buf, SETTINGS.bufLen);
+    cout << buf << '\n';
+    
+    if (!strncmp(buf, "GET", 3)) {
+        char* file = buf + 4;
+        char* space = strchr(file, ' ');
+        *space = '\0';
+        sendFile(file, sockfd);
+    } else {
+        cout << "Unsupport request.";
+    }
+    
+}
+
+void Server::sendFile(char* filename, int sockfd) {
+    
+    char* contents = "<html><body>Hello World</body></html>";
+    
+    if (!strcmp(filename, "/")) {
+        write(sockfd, RESMSG[200], (int)strlen(RESMSG[200]));
+        write(sockfd, contents, (int)strlen(contents));
+    } else {
+        write(sockfd, RESMSG[404], (int)strlen(RESMSG[404]));
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
