@@ -7,6 +7,60 @@ IntDict RESMSG = {
     { 404, "HTTP/1.1 404 Not Found\r\nContent-type, text/html\r\n\r\n" }
 };
 
+set<string> METHODS = {
+    "GET",
+    "POST",
+    "PUT",
+    "DELETE",
+    "HEAD"
+};
+
+IntDict STATUSCODE = {
+    // Information 1XX
+    { 100, "Continue" },
+    { 101, "Switching Protocols" },
+    // Successful 2XX
+    { 200, "OK" },
+    { 201, "Cleated" },
+    { 202, "Acepted" },
+    { 203, "Non-Authoritative Information" },
+    { 204, "No Content" },
+    { 205, "Reset Content" },
+    { 206, "Partial Content" },
+    // Redirection 3XX
+    { 300, "Multiple Choices" },
+    { 301, "Move Permanently" },
+    { 302, "Found" },
+    { 303, "See Other" },
+    { 304, "Not Modified" },
+    { 305, "Use Proxy" },
+    // Client Error 4XX
+    { 400, "Bad Request" },
+    { 401, "Unauthorized" },
+    { 402, "Payment Required" },
+    { 404, "Not Found" },
+    { 405, "Method Not Allowed" },
+    { 406, "Not Acceptable" },
+    { 407, "Proxy Authentication Required" },
+    { 408, "Request Timeout" },
+    { 409, "Conflict" },
+    { 410, "Gone" },
+    { 411, "Length Required" },
+    { 412, "Precondition Failed" },
+    { 413, "Request Entity Too Large" },
+    { 414, "Request-URI Too Long" },
+    { 415, "Unsupported Media Type" },
+    { 416, "Requested Range Not Satisfiable" },
+    { 417, "Expectation Failed" },
+    // Server Error 5XX
+    { 500, "Internal Server Error" },
+    { 501, "Not Implemented" },
+    { 502, "Bad Gateway" },
+    { 503, "Service Unavailable" },
+    { 504, "Gateway Timeout" },
+    { 505, "HTTP Version Not Supported" }
+};
+
 StrDict MIMETYPE = {
     { "aiff", "audio/x-aiff" },
     { "arj", "application/x-arj-compressed" },

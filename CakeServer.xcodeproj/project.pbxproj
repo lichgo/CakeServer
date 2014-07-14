@@ -11,6 +11,7 @@
 		FD90AE12197205DD00127857 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD90AE11197205DD00127857 /* main.cpp */; };
 		FD90AE14197205DD00127857 /* CakeServer.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = FD90AE13197205DD00127857 /* CakeServer.1 */; };
 		FD90AE1D1972071300127857 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD90AE1A1972071300127857 /* server.cpp */; };
+		FDC175061972D56A0054846A /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FDC175041972D56A0054846A /* utils.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,6 +37,8 @@
 		FD90AE1C1972071300127857 /* settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settings.h; sourceTree = "<group>"; };
 		FD90AE1E19721CAF00127857 /* cs_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cs_types.h; sourceTree = "<group>"; };
 		FD90AE1F19724ADB00127857 /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = "<group>"; };
+		FDC175041972D56A0054846A /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
+		FDC175051972D56A0054846A /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,8 @@
 		FD90AE10197205DD00127857 /* CakeServer */ = {
 			isa = PBXGroup;
 			children = (
+				FDC175041972D56A0054846A /* utils.cpp */,
+				FDC175051972D56A0054846A /* utils.h */,
 				FD48740119729687003E256C /* global.cpp */,
 				FD90AE1F19724ADB00127857 /* global.h */,
 				FD90AE1E19721CAF00127857 /* cs_types.h */,
@@ -134,6 +139,7 @@
 				FD90AE1D1972071300127857 /* server.cpp in Sources */,
 				FD90AE12197205DD00127857 /* main.cpp in Sources */,
 				FD48740219729687003E256C /* global.cpp in Sources */,
+				FDC175061972D56A0054846A /* utils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

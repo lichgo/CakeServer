@@ -1,6 +1,7 @@
 #include "cs_types.h"
 #include "settings.h"
 #include "server.h"
+#include "utils.h"
 
 extern  "C" {
     int read(int, void*, int);
@@ -67,7 +68,7 @@ void Server::response(int sockfd) {
     
     char* buf = new char[SETTINGS.bufLen];
 
-    read(sockfd, buf, SETTINGS.bufLen);
+    read(sockfd, buf, (unsigned int)SETTINGS.bufLen);
     cout << buf << '\n';
     
     if (!strncmp(buf, "GET", 3)) {
@@ -83,13 +84,13 @@ void Server::response(int sockfd) {
 
 void Server::sendFile(char* filename, int sockfd) {
     
-    char* contents = "<html><body>Hello World</body></html>";
+    string contents = "<html><body>Hello World</body></html>";
     
     if (!strcmp(filename, "/")) {
-        write(sockfd, RESMSG[200], (int)strlen(RESMSG[200]));
-        write(sockfd, contents, (int)strlen(contents));
+        write(sockfd, Utils::strToCharPtr(RESMSG[200]), (unsigned int)RESMSG[200].length());
+        write(sockfd, Utils::strToCharPtr(contents), (unsigned int)contents.length());
     } else {
-        write(sockfd, RESMSG[404], (int)strlen(RESMSG[404]));
+        write(sockfd, Utils::strToCharPtr(RESMSG[404]), (unsigned int)RESMSG[404].length());
     }
 }
 
