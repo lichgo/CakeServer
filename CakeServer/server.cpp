@@ -2,6 +2,7 @@
 #include "settings.h"
 #include "server.h"
 #include "utils.h"
+#include "global.h"
 
 extern  "C" {
     int read(int, void*, int);
@@ -11,12 +12,9 @@ extern  "C" {
 
 using namespace cakeserver;
 
-extern IntDict RESMSG;
-extern StrDict MIMETYPE;
-
 static struct Settings SETTINGS = {
     .bufLen = 1024,
-    .port = 8000
+    .port = 8888
 };
 
 Server::Server() {
@@ -57,41 +55,72 @@ void Server::run() {
     
     while (true) {
         newfd = accept(sockfd, NULL, NULL);
-        cout << "Responding to the client...\n";
-        response(newfd);
+        
+        char* buf = new char[SETTINGS.bufLen];
+        read(newfd, buf, (unsigned int)SETTINGS.bufLen);
+        cout << buf << '\n';
+    
+        string method;
+        string path;
+        parseRequest(buf, &method, &path);
+        cout << "METHOD: " << method << '\n';
+        cout << "PATH: " << path << '\n';
+        
+        sendFile(path, newfd);
+        
+        delete [] buf;
         close(newfd);
     }
     
 }
 
-void Server::response(int sockfd) {
-    
-    char* buf = new char[SETTINGS.bufLen];
+//void Server::response(int sockfd) {
+//    
+//    char* buf = new char[SETTINGS.bufLen];
+//
+//    read(sockfd, buf, (unsigned int)SETTINGS.bufLen);
+//    cout << buf << '\n';
+//    
+//    string method, path;
+//    parseRequest(buf, &method, &path);
+//    cout << "Method: " << method << std::endl;
+//    cout << "Path: " << path << std::endl;
+//    
+//    if (!strncmp(buf, "GET", 3)) {
+//        char* file = buf + 4;
+//        char* space = strchr(file, ' ');
+//        *space = '\0';
+//        sendFile(file, sockfd);
+//    } else {
+//        cout << "Unsupport request.";
+//    }
+//    
+//}
 
-    read(sockfd, buf, (unsigned int)SETTINGS.bufLen);
-    cout << buf << '\n';
+void Server::sendFile(const string& filename, int sockfd) {
     
-    if (!strncmp(buf, "GET", 3)) {
-        char* file = buf + 4;
-        char* space = strchr(file, ' ');
-        *space = '\0';
-        sendFile(file, sockfd);
+    char* content;
+    int length;
+    Utils::fileToCharArr(filename, &content, &length);
+    
+    if (content) {
+        write(sockfd, Utils::strToCharArr(RESMSG[200]), (unsigned int)(RESMSG[200].length()));
+        write(sockfd, content, length);
     } else {
-        cout << "Unsupport request.";
+        write(sockfd, Utils::strToCharArr(RESMSG[404]), (unsigned int)(RESMSG[404].length()));
     }
     
 }
 
-void Server::sendFile(char* filename, int sockfd) {
+void Server::clearCache() {
     
-    string contents = "<html><body>Hello World</body></html>";
-    
-    if (!strcmp(filename, "/")) {
-        write(sockfd, Utils::strToCharPtr(RESMSG[200]), (unsigned int)RESMSG[200].length());
-        write(sockfd, Utils::strToCharPtr(contents), (unsigned int)contents.length());
-    } else {
-        write(sockfd, Utils::strToCharPtr(RESMSG[404]), (unsigned int)RESMSG[404].length());
-    }
+}
+
+void Server::parseRequest(char* req, string* method, string* path) {
+    char* space_1st_occr = strstr(req, " ");
+    char* space_2nd_occr = strstr(space_1st_occr + 1, " ");
+    (*method).append(req, space_1st_occr - req);
+    (*path).append(space_1st_occr + 1, space_2nd_occr - space_1st_occr);
 }
 
 

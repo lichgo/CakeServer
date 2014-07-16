@@ -17,12 +17,16 @@ namespace cakeserver {
         Server(const Server& src);
         Server& operator=(const Server& rhs);
         void response(int sockfd);
-        void sendFile(char* filename, int sockfd);
+        void sendFile(const string& filename, int sockfd);
+        void clearCache();
+        void parseRequest(char* req, string* method, string* path);
     
         int sockfd;
         int err;
         int newfd;
         struct sockaddr_in address;
+        
+        StrDict pathCache;
     };
     
 }

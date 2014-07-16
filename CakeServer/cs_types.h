@@ -6,12 +6,14 @@
 #include <iostream>
 #include <unordered_map>
 #include <set>
+#include <fstream>
 
 using std::runtime_error;
 using std::cout;
 using std::string;
 using std::unordered_map;
 using std::set;
+using std::ifstream;
 
 typedef unordered_map<int, string> IntDict;
 typedef unordered_map<string, string> StrDict;
