@@ -11,10 +11,10 @@ char* Utils::strToCharArr(const string& str) {
 }
 
 void Utils::fileToCharArr(const string& path, char** content, int* length) {
+
+    ifstream ifs("/Users/lichgo/MicroCloud/Server/CakeServer/web" + path, std::ios::in | std::ios::binary);
     
-    ifstream ifs("/Users/lichgo/MicroCloud/Server/CakeServer/web" + path, ifs.out);
-    
-    if (ifs.fail() == 0) {
+    if (ifs) {
         ifs.seekg(0, ifs.end);
         *length = (int)(ifs.tellg());
         
@@ -26,9 +26,5 @@ void Utils::fileToCharArr(const string& path, char** content, int* length) {
         cout << "LENGTH: " << *length << ".\n";
         
         ifs.close();
-    } else {
-        *length = 5;
-        char buf[] = "Hello";
-        *content = buf;
     }
 }

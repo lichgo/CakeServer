@@ -14,7 +14,7 @@ using namespace cakeserver;
 
 static struct Settings SETTINGS = {
     .bufLen = 1024,
-    .port = 8888
+    .port = 8080
 };
 
 Server::Server() {
@@ -100,10 +100,10 @@ void Server::run() {
 void Server::sendFile(const string& filename, int sockfd) {
     
     char* content;
-    int length;
+    int length = 0;
     Utils::fileToCharArr(filename, &content, &length);
     
-    if (content) {
+    if (length) {
         write(sockfd, Utils::strToCharArr(RESMSG[200]), (unsigned int)(RESMSG[200].length()));
         write(sockfd, content, length);
     } else {
@@ -120,7 +120,7 @@ void Server::parseRequest(char* req, string* method, string* path) {
     char* space_1st_occr = strstr(req, " ");
     char* space_2nd_occr = strstr(space_1st_occr + 1, " ");
     (*method).append(req, space_1st_occr - req);
-    (*path).append(space_1st_occr + 1, space_2nd_occr - space_1st_occr);
+    (*path).append(space_1st_occr + 1, space_2nd_occr - (space_1st_occr + 1));
 }
 
 
