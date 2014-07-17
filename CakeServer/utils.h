@@ -8,7 +8,6 @@ namespace cakeserver {
     class Utils {
     public:
         static char* strToCharArr(const string& str);
-        static void fileToCharArr(const string& path, char** content, int* length);
     };
     
 }

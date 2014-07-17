@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FD0ABAC51978183E00A0697E /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD0ABAC31978183E00A0697E /* file.cpp */; };
 		FD90AE12197205DD00127857 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD90AE11197205DD00127857 /* main.cpp */; };
 		FD90AE14197205DD00127857 /* CakeServer.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = FD90AE13197205DD00127857 /* CakeServer.1 */; };
 		FD90AE1D1972071300127857 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD90AE1A1972071300127857 /* server.cpp */; };
@@ -27,6 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FD0ABAC31978183E00A0697E /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
+		FD0ABAC41978183E00A0697E /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
 		FD90AE0E197205DD00127857 /* CakeServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CakeServer; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD90AE11197205DD00127857 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		FD90AE13197205DD00127857 /* CakeServer.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = CakeServer.1; sourceTree = "<group>"; };
@@ -69,6 +72,8 @@
 		FD90AE10197205DD00127857 /* CakeServer */ = {
 			isa = PBXGroup;
 			children = (
+				FD0ABAC31978183E00A0697E /* file.cpp */,
+				FD0ABAC41978183E00A0697E /* file.h */,
 				FDC175041972D56A0054846A /* utils.cpp */,
 				FDC175051972D56A0054846A /* utils.h */,
 				FD90AE1F19724ADB00127857 /* global.h */,
@@ -134,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD90AE1D1972071300127857 /* server.cpp in Sources */,
+				FD0ABAC51978183E00A0697E /* file.cpp in Sources */,
 				FD90AE12197205DD00127857 /* main.cpp in Sources */,
 				FDC175061972D56A0054846A /* utils.cpp in Sources */,
 			);

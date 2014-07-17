@@ -58,15 +58,13 @@ void Server::run() {
         
         char* buf = new char[SETTINGS.bufLen];
         read(newfd, buf, (unsigned int)SETTINGS.bufLen);
-        cout << buf << '\n';
     
         string method;
         string path;
-        parseRequest(buf, &method, &path);
-        cout << "METHOD: " << method << '\n';
-        cout << "PATH: " << path << '\n';
+        string ext;
+        parseRequest(buf, &method, &path, &ext);
         
-        sendFile(path, newfd);
+        sendFile(method, path, ext, newfd);
         
         delete [] buf;
         close(newfd);
@@ -74,53 +72,42 @@ void Server::run() {
     
 }
 
-//void Server::response(int sockfd) {
-//    
-//    char* buf = new char[SETTINGS.bufLen];
-//
-//    read(sockfd, buf, (unsigned int)SETTINGS.bufLen);
-//    cout << buf << '\n';
-//    
-//    string method, path;
-//    parseRequest(buf, &method, &path);
-//    cout << "Method: " << method << std::endl;
-//    cout << "Path: " << path << std::endl;
-//    
-//    if (!strncmp(buf, "GET", 3)) {
-//        char* file = buf + 4;
-//        char* space = strchr(file, ' ');
-//        *space = '\0';
-//        sendFile(file, sockfd);
-//    } else {
-//        cout << "Unsupport request.";
-//    }
-//    
-//}
-
-void Server::sendFile(const string& filename, int sockfd) {
+void Server::sendFile(const string& method, const string& path, const string& ext, int sockfd) {
     
-    char* content;
-    int length = 0;
-    Utils::fileToCharArr(filename, &content, &length);
+    File* file;
     
-    if (length) {
-        write(sockfd, Utils::strToCharArr(RESMSG[200]), (unsigned int)(RESMSG[200].length()));
-        write(sockfd, content, length);
+    unordered_map<string, File*>::iterator ptr = pathCache.find(path);
+    if (ptr == pathCache.end()) {
+        file = new File(path, ext);
+        
+        if (file->length) {
+            pathCache[path] = file;
+        } else {
+            delete file;
+            write(sockfd, Utils::strToCharArr(RESMSG[404]), (unsigned int)(RESMSG[404].length()));
+            return;
+        }
     } else {
-        write(sockfd, Utils::strToCharArr(RESMSG[404]), (unsigned int)(RESMSG[404].length()));
+        file = pathCache[path];
     }
+    
+    string header = "HTTP/1.1 200 " + STATUSCODE[200] + "\r\nContent-type, " + MIMETYPE[ext] + "\r\n\r\n";
+    write(sockfd, Utils::strToCharArr(header), (unsigned int)(header.length()));
+    write(sockfd, file->content, (unsigned int)file->length);
     
 }
 
 void Server::clearCache() {
-    
+    pathCache.clear();
 }
 
-void Server::parseRequest(char* req, string* method, string* path) {
+void Server::parseRequest(char* req, string* method, string* path, string* ext) {
     char* space_1st_occr = strstr(req, " ");
     char* space_2nd_occr = strstr(space_1st_occr + 1, " ");
     (*method).append(req, space_1st_occr - req);
     (*path).append(space_1st_occr + 1, space_2nd_occr - (space_1st_occr + 1));
+    size_t hit = (*path).find_last_of('.');
+    if (hit != string::npos) (*ext) = (*path).substr(hit + 1);
 }
 
 

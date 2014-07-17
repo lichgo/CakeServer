@@ -3,6 +3,7 @@
 
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include "file.H"
 
 namespace cakeserver {
     
@@ -17,16 +18,16 @@ namespace cakeserver {
         Server(const Server& src);
         Server& operator=(const Server& rhs);
         void response(int sockfd);
-        void sendFile(const string& filename, int sockfd);
+        void sendFile(const string& method, const string& filename, const string& ext, int sockfd);
         void clearCache();
-        void parseRequest(char* req, string* method, string* path);
+        void parseRequest(char* req, string* method, string* path, string* ext);
     
         int sockfd;
         int err;
         int newfd;
         struct sockaddr_in address;
         
-        StrDict pathCache;
+        unordered_map<string, File*> pathCache;
     };
     
 }
